@@ -37,6 +37,7 @@ INSTALLED_APPS += (
     "bk_framework_app",
     "rest_framework",
     "drf_yasg",
+    'corsheaders',
     
 )
 
@@ -66,7 +67,9 @@ INSTALLED_APPS += (
 # )
 
 # 自定义中间件
-MIDDLEWARE += ()  # noqa
+MIDDLEWARE += (
+    'corsheaders.middleware.CorsMiddleware',
+)  # noqa
 
 # 默认数据库AUTO字段类型
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
@@ -81,6 +84,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 STATIC_VERSION = "1.0"
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+TEMPLATES[0]['DIRS'] += (
+    os.path.join(BASE_DIR, 'static', 'dist'),
+)
 
 # CELERY 开关，使用时请改为 True，修改项目目录下的 Procfile 文件，添加以下两行命令：
 # worker: python manage.py celery worker -l info
@@ -112,7 +119,7 @@ INIT_SUPERUSER = []
 MAKO_DEFAULT_FILTERS = ["h"]
 
 # BKUI是否使用了history模式
-IS_BKUI_HISTORY_MODE = False
+IS_BKUI_HISTORY_MODE = True
 
 # 是否需要对AJAX弹窗登录强行打开
 IS_AJAX_PLAIN_MODE = False

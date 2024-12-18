@@ -19,4 +19,6 @@ urlpatterns = (
     re_path(r"^$", views.home),
     re_path(r"^dev-guide/$", views.dev_guide),
     re_path(r"^contact/$", views.contact),
+    re_path(r'^hello/$', views.hello),
+    re_path(r'^home', views.home)
 )

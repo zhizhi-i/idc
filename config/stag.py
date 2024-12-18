@@ -21,6 +21,8 @@ else:
 # 预发布环境
 RUN_MODE = "STAGING"
 
+BK_STATIC_URL = STATIC_URL + 'dist/'
+
 # 只对预发布环境日志级别进行配置，可以在这里修改
 # from blueapps.conf.log import set_log_level # noqa
 # LOG_LEVEL = "ERROR"

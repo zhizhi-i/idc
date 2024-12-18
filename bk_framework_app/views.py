@@ -12,6 +12,7 @@ specific language governing permissions and limitations under the License.
 """
 
 from django.shortcuts import render
+from django.http import JsonResponse
 
 
 # 开发框架中通过中间件默认是需要登录态的，如有不需要登录的，可添加装饰器login_exempt
@@ -20,7 +21,7 @@ def home(request):
     """
     首页
     """
-    return render(request, "bk_framework_app/index_home.html")
+    return render(request, "index.html")
 
 
 def dev_guide(request):
@@ -35,3 +36,7 @@ def contact(request):
     联系页
     """
     return render(request, "bk_framework_app/contact.html")
+
+
+def hello(request):
+    return JsonResponse({"hello": "world"})

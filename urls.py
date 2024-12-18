@@ -14,6 +14,7 @@ specific language governing permissions and limitations under the License.
 from django.contrib import admin
 from django.urls import include, re_path
 
+
 urlpatterns = [
     # 出于安全考虑，默认屏蔽admin访问路径。
     # 开启前请修改路径随机内容，降低被猜测命中几率，提升安全性
@@ -25,4 +26,5 @@ urlpatterns = [
     re_path(r"^account/", include("blueapps.account.urls")),
     
     re_path(r"^i18n/", include("django.conf.urls.i18n")),
+
 ]
