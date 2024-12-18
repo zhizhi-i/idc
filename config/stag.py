@@ -21,6 +21,8 @@ else:
 # 预发布环境
 RUN_MODE = "STAGING"
 
+STATIC_URL = "/static/"
+
 BK_STATIC_URL = STATIC_URL + 'dist/'
 
 # 只对预发布环境日志级别进行配置，可以在这里修改

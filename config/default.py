@@ -81,13 +81,18 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # 可能会造成没更新的情况. 所以在引用静态资源的地方，都把这个加上
 # Django 模板中：<script src="/a.js?v={{ STATIC_VERSION }}"></script>
 # 如果静态资源修改了以后，上线前改这个版本号即可
-STATIC_VERSION = "1.0"
+STATIC_VERSION = "1.1"
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 TEMPLATES[0]['DIRS'] += (
     os.path.join(BASE_DIR, 'static', 'dist'),
 )
+
+STATIC_URL = "/static/"
+
+BK_STATIC_URL = STATIC_URL + 'dist/'
+
 
 # CELERY 开关，使用时请改为 True，修改项目目录下的 Procfile 文件，添加以下两行命令：
 # worker: python manage.py celery worker -l info
@@ -96,7 +101,7 @@ TEMPLATES[0]['DIRS'] += (
 IS_USE_CELERY = False
 
 # 前后端分离开发配置开关，设置为True时dev和stag环境会自动加载允许跨域的相关选项
-FRONTEND_BACKEND_SEPARATION = False
+FRONTEND_BACKEND_SEPARATION = True
 
 # CELERY 并发数，默认为 2，可以通过环境变量或者 Procfile 设置
 CELERYD_CONCURRENCY = os.getenv("BK_CELERYD_CONCURRENCY", 2)

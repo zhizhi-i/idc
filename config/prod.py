@@ -21,6 +21,8 @@ else:
 # 正式环境
 RUN_MODE = "PRODUCT"
 
+STATIC_URL = "/static/"
+
 BK_STATIC_URL = STATIC_URL + 'dist/'
 
 # 只对正式环境日志级别进行配置，可以在这里修改
