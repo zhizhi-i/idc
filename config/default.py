@@ -37,7 +37,6 @@ INSTALLED_APPS += (
     "bk_framework_app",
     "rest_framework",
     "drf_yasg",
-    'corsheaders',
     
 )
 
@@ -67,9 +66,7 @@ INSTALLED_APPS += (
 # )
 
 # 自定义中间件
-MIDDLEWARE += (
-    'corsheaders.middleware.CorsMiddleware',
-)  # noqa
+MIDDLEWARE += ()  # noqa
 
 # 默认数据库AUTO字段类型
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
