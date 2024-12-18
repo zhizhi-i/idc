@@ -21,7 +21,7 @@ else:
 # 预发布环境
 RUN_MODE = "STAGING"
 
-STATIC_URL = "stag--idc/static/"
+STATIC_URL = "/static/"
 
 BK_STATIC_URL = STATIC_URL + 'dist/'
 
