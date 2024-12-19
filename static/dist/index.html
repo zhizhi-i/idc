@@ -114,22 +114,6 @@
             container: '#chart_1733795950540'
           });
         });
-        function initEStandLineChart(conf) {
-          $.ajax({
-            url: conf.url,
-            type: 'GET',
-            dataType: conf.dataType,
-            success: function (res) {
-              //获取数据成功
-              if (res.result) {
-                createEStandLineChart({
-                  selector: conf.containerId, // 图表容器
-                  data: res.data, // 图表数据
-                });
-              }
-            }
-          })
-        }
         $(function () {
           initEStandLineChart({
             url: 'https://magicbox.bk.tencent.com/static_api/v3/components/chart3/demo.json',
@@ -199,23 +183,6 @@
           });
         });
 
-        function initEPieChart(conf) {
-          $.ajax({
-            url: conf.url,
-            type: 'GET',
-            dataType: conf.dataType,
-            success: function (res) {
-              //获取数据成功
-              if (res.result) {
-                var data = res.data;
-                createEPieChart({
-                  selector: conf.containerId, // 图表容器
-                  data: data, // 图表数据
-                });
-              }
-            }
-          });
-        }
         $(function () {
           initEPieChart({
             url: 'https://magicbox.bk.tencent.com/static_api/v3/components/chart4/demo.json',
