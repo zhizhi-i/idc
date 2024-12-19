@@ -81,7 +81,7 @@
             }
           });
           $(window).resize(function () {
-            // $(conf.selector).data("kendoChart").refresh();
+            $(conf.selector).data("kendoChart").refresh();
           });
         }
         function initKendoBarChart(conf) {
@@ -106,11 +106,11 @@
           });
         }
         $(function () {
-          // initKendoBarChart({
-          //   url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_bar/demo.json',
-          //   dataType: 'json',
-          //   container: '#chart_1733795950540'
-          // });
+          initKendoBarChart({
+            url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_bar/demo.json',
+            dataType: 'json',
+            container: '#chart_1733795950540'
+          });
         });
         function createEStandLineChart(conf) {
           var myChart = echarts.init(document.getElementById(conf.selector));
