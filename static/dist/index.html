@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Vue + TS</title>
+    <title>网络建设平台</title>
     <!-- 若您需要使用Kendo UI Professional，请联系版权人获得合法的授权或许可。 -->
     <!-- Bootstrap css -->
     <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css"
@@ -41,138 +41,188 @@
   </head>
   <body>
     <div id="app"></div>
-    <!-- 不再需要的 echarts-all.js 被删除 -->
+    <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+    <!-- <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script> -->
     <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
 
     <script>
-      // 创建图表
-      function createKendoBarChart(conf) {
-        $(conf.selector).kendoChart({
-          legend: {
-            position: "bottom"
-          },
-          theme: 'bootstrap',
-          categoryAxis: {
-            majorGridLines: {
-              visible: false
+      
+        // 创建图表
+        function createKendoBarChart(conf) {
+          $(conf.selector).kendoChart({
+            legend: {
+              position: "bottom"
             },
-            categories: conf.data.categories
-          },
-          seriesDefaults: {
-            type: "column"
-          },
-          series: conf.data.series,
-          valueAxis: {
-            max: 200,
-            line: {
-              visible: false
+            theme: 'bootstrap',
+            categoryAxis: {
+              majorGridLines: {
+                visible: false
+              },
+              categories: conf.data.categories
             },
-            minorGridLines: {
-              visible: false
+            seriesDefaults: {
+              type: "column"
             },
-            labels: {
-              rotation: "auto"
-            }
-          },
-          tooltip: {
-            visible: true,
-            template: "#= series.name # #= value #"
-          }
-        });
-        $(window).resize(function () {
-          $(conf.selector).data("kendoChart").refresh();
-        });
-      }
-
-      function initKendoBarChart(conf) {
-        // 异步请求后台数据
-        $.ajax({
-          url: conf.url,
-          type: 'GET',
-          dataType: conf.dataType,
-          success: function (res) {
-            //获取数据成功
-            if (res.result) {
-              var data = {
-                series: res.data.series,
-                categories: res.data.categories
-              };
-              createKendoBarChart({
-                selector: conf.container, // 图表窗器
-                data: data // 图表数据
-              });
-            }
-          }
-        });
-      }
-      $(function () {
-        initKendoBarChart({
-          url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_bar/demo.json',
-          dataType: 'json',
-          container: '#chart_1733795950540'
-        });
-      });
-
-      // 创建Kendo饼图
-      function createKendoPieChart(conf) {
-        $(conf.selector).kendoChart({
-          title: {
-            text: conf.data.title
-          },
-          legend: {
-            position: "bottom"
-          },
-          theme: 'bootstrap',
-          seriesDefaults: {
-            labels: {
-              template: "#= category # - #= kendo.format('{0:P}', percentage)#",
-              position: "outsideEnd",
+            series: conf.data.series,
+            valueAxis: {
+              max: 200,
+              line: {
+                visible: false
+              },
+              minorGridLines: {
+                visible: false
+              },
+              labels: {
+                rotation: "auto"
+              }
+            },
+            tooltip: {
               visible: true,
-              background: "transparent"
+              template: "#= series.name # #= value #"
             }
-          },
-          series: [{
-            type: 'pie',
-            data: conf.data.series
-          }],
-          tooltip: {
-            visible: true,
-            template: "#= category # - #= kendo.format('{0:P}', percentage) #"
-          }
-        });
-        $(window).resize(function () {
-          $(conf.selector).data("kendoChart").refresh();
-        });
-      }
+          });
+          $(window).resize(function () {
+            $(conf.selector).data("kendoChart").refresh();
+          });
+        }
 
-      function initKendoPieChart(conf) {
-        // 异步请求后台数据
-        $.ajax({
-          url: conf.url,
-          type: 'GET',
-          dataType: conf.dataType,
-          success: function (res) {
-            //获取数据成功
-            if (res.result) {
-              var data = {
-                series: res.data.series
-              };
-              createKendoPieChart({
-                selector: conf.container, // 图表容器
-                data: data // 图表数据
-              });
+        function initKendoBarChart(conf) {
+          // 异步请求后台数据
+          $.ajax({
+            url: conf.url,
+            type: 'GET',
+            dataType: conf.dataType,
+            success: function (res) {
+              //获取数据成功
+              if (res.result) {
+                var data = {
+                  series: res.data.series,
+                  categories: res.data.categories
+                };
+                createKendoBarChart({
+                  selector: conf.container, // 图表窗器
+                  data: data // 图表数据
+                });
+              }
             }
-          }
+          });
+        }
+        $(function () {
+          initKendoBarChart({
+            url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_bar/demo.json',
+            dataType: 'json',
+            container: '#chart_1733795950540'
+          });
         });
-      }
+        function initEStandLineChart(conf) {
+          $.ajax({
+            url: conf.url,
+            type: 'GET',
+            dataType: conf.dataType,
+            success: function (res) {
+              //获取数据成功
+              if (res.result) {
+                createEStandLineChart({
+                  selector: conf.containerId, // 图表容器
+                  data: res.data, // 图表数据
+                });
+              }
+            }
+          })
+        }
+        $(function () {
+          initEStandLineChart({
+            url: 'https://magicbox.bk.tencent.com/static_api/v3/components/chart3/demo.json',
+            dataType: 'json',
+            containerId: 'chart_1733795955393'
+          });
+        });
+        // 创建图表
+        function createKendoPieChart(conf) {
+          $(conf.selector).kendoChart({
+            title: {
+              text: conf.data.title
+            },
+            legend: {
+              position: "bottom"
+            },
+            theme: 'bootstrap',
+            seriesDefaults: {
+              labels: {
+                template: "#= category # - #= kendo.format('{0:P}', percentage)#",
+                position: "outsideEnd",
+                visible: true,
+                background: "transparent"
+              }
+            },
+            series: [{
+              type: 'pie',
+              data: conf.data.series
+            }],
+            tooltip: {
+              visible: true,
+              template: "#= category # - #= kendo.format('{0:P}', percentage) #"
+            }
+          });
+          $(window).resize(function () {
+            $(conf.selector).data("kendoChart").refresh();
+          });
+        }
 
-      $(function () {
-        initKendoPieChart({
-          url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_pie/demo.json',
-          dataType: 'json',
-          container: '#chart_1733796033555'
+        function initKendoPieChart(conf) {
+          // 异步请求后台数据
+          $.ajax({
+            url: conf.url,
+            type: 'GET',
+            dataType: conf.dataType,
+            success: function (res) {
+              //获取数据成功
+              if (res.result) {
+                var data = {
+                  series: res.data.series
+                };
+                createKendoPieChart({
+                  selector: conf.container, // 图表容器
+                  data: data // 图表数据
+                });
+              }
+            }
+          });
+        }
+
+
+        $(function () {
+          initKendoPieChart({
+            url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_pie/demo.json',
+            dataType: 'json',
+            container: '#chart_1733796033555'
+          });
         });
-      });
+
+        function initEPieChart(conf) {
+          $.ajax({
+            url: conf.url,
+            type: 'GET',
+            dataType: conf.dataType,
+            success: function (res) {
+              //获取数据成功
+              if (res.result) {
+                var data = res.data;
+                createEPieChart({
+                  selector: conf.containerId, // 图表容器
+                  data: data, // 图表数据
+                });
+              }
+            }
+          });
+        }
+        $(function () {
+          initEPieChart({
+            url: 'https://magicbox.bk.tencent.com/static_api/v3/components/chart4/demo.json',
+            dataType: 'json',
+            containerId: 'chart_1733796035525'
+          });
+        });
     </script>
 
   </body>
