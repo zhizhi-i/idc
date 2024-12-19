@@ -42,7 +42,7 @@
   <body>
     <div id="app"></div>
     <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
-    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <!-- <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script> -->
     <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
 
     <script>
@@ -239,61 +239,59 @@
           });
         });
         // 创建图表
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-          function createEPieChart(conf) {
-            var myChart = echarts.init(document.getElementById(conf.selector));
-            var aLegend = [];
-            var series = conf.data.series;
-            for (var i = 0; i < series.length; i++) {
-              aLegend[i] = series[i].name;
-            };
-            // 填入数据
-            myChart.setOption({
-              title: {
-                text: conf.data.title,
-                subtext: '',
-                x: 'center'
-              },
-              legend: {
-                y: 'bottom',
-                data: aLegend
-              },
-              tooltip: {
-                trigger: 'item',
-                formatter: "{a} {b} : {c} ({d}%)"
-              },
-              toolbox: {
-                show: true,
-                feature: {
-                  mark: { show: true },
-                  dataView: { show: true, readOnly: false },
-                  magicType: {
-                    show: true,
-                    type: ['pie', 'funnel'],
-                    option: {
-                      funnel: {
-                        x: '25%',
-                        width: '50%',
-                        funnelAlign: 'left',
-                        max: 1548
-                      }
+        function createEPieChart(conf) {
+          var myChart = echarts.init(document.getElementById(conf.selector));
+          var aLegend = [];
+          var series = conf.data.series;
+          for (var i = 0; i < series.length; i++) {
+            aLegend[i] = series[i].name;
+          };
+          // 填入数据
+          myChart.setOption({
+            title: {
+              text: conf.data.title,
+              subtext: '',
+              x: 'center'
+            },
+            legend: {
+              y: 'bottom',
+              data: aLegend
+            },
+            tooltip: {
+              trigger: 'item',
+              formatter: "{a} {b} : {c} ({d}%)"
+            },
+            toolbox: {
+              show: true,
+              feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: {
+                  show: true,
+                  type: ['pie', 'funnel'],
+                  option: {
+                    funnel: {
+                      x: '25%',
+                      width: '50%',
+                      funnelAlign: 'left',
+                      max: 1548
                     }
-                  },
-                  restore: { show: true },
-                  saveAsImage: { show: true }
-                }
-              },
-              calculable: true,
-              series: [{
-                // 根据名字对应到相应的系列
-                name: '访问来源',
-                type: 'pie',
-                data: series
-              }]
-            });
-          }
-        });
+                  }
+                },
+                restore: { show: true },
+                saveAsImage: { show: true }
+              }
+            },
+            calculable: true,
+            series: [{
+              // 根据名字对应到相应的系列
+              name: '访问来源',
+              type: 'pie',
+              data: series
+            }]
+          });
+        }
+
         function initEPieChart(conf) {
           $.ajax({
             url: conf.url,
