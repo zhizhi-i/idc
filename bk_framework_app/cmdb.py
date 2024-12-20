@@ -102,9 +102,7 @@ class SearchCmdbIns(object):
             logger.info(f"本次请求接口返回结果:{res}")
             
             info = res.get("data", {}).get("info", [])
-
             info = info if info is not None else []
-
             all_data.extend(info)
 
             start += limit
