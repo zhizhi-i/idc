@@ -13,6 +13,7 @@ specific language governing permissions and limitations under the License.
 
 from django.shortcuts import render
 from django.http import JsonResponse
+from blueking.component.shortcuts import get_client_by_request
 
 
 # 开发框架中通过中间件默认是需要登录态的，如有不需要登录的，可添加装饰器login_exempt
@@ -40,3 +41,16 @@ def contact(request):
 
 def hello(request):
     return JsonResponse({"hello": "world"})
+
+
+def get_obj_ins_count(request):
+    data = {
+        "bk_app_code": "bk_sops",
+        "bk_app_secret": "0CR79bvYKkZ651T01tyZuz4nc9QF7e6ykWir",
+        "bk_username": "admin",
+        "bk_obj_id": "IDC_Deliver"
+    }
+    client = get_client_by_request(request)
+    resp = client.cc.count_object_instances(data)
+
+    return JsonResponse(resp)
