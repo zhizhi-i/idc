@@ -22,5 +22,5 @@ urlpatterns = (
     re_path(r"^contact/$", views.contact),
     re_path(r'^hello/$', views.hello),
     re_path(r'^home', views.home),
-    re_path(r'^cmdb/api/get_ins_by_condition$', SearchCmdbIns().get_ins_by_condition)
+    re_path(r'^api/cmdb/get_ins_by_condition$', SearchCmdbIns().get_ins_by_condition)
 )
