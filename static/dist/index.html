@@ -39,14 +39,14 @@
         cursor: pointer; 
       }
     </style>
-    <script type="module" crossorigin src="{{ STATIC_URL }}dist/assets/index-D9_o0yQi.js"></script>
+    <script type="module" crossorigin src="{{ STATIC_URL }}dist/assets/index-BZtYrnlo.js"></script>
     <link rel="stylesheet" crossorigin href="{{ STATIC_URL }}dist/assets/index-BALhmtCV.css">
   </head>
   <body>
     <div id="app"></div>
     <script>
       
-        // 创建图表
+        // 柱状图
         function createKendoBarChart(conf) {
           $(conf.selector).kendoChart({
             legend: {
@@ -64,7 +64,7 @@
             },
             series: conf.data.series,
             valueAxis: {
-              max: 200,
+              max: 1000,
               line: {
                 visible: false
               },
@@ -105,13 +105,15 @@
             }
           });
         }
+        // 柱状图数据源
         $(function () {
           initKendoBarChart({
-            url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_bar/demo.json',
+            url: 'http://apps.blueking.megaspeed-tech.ai/idc/api/cmdb/get_power_date',
             dataType: 'json',
             container: '#chart_1733795950540'
           });
         });
+        // 折线图
         function createEStandLineChart(conf) {
           var myChart = echarts.init(document.getElementById(conf.selector));
           var legendData = []
@@ -168,72 +170,15 @@
             }
           })
         }
+        // 折线图数据源
         $(function () {
           initEStandLineChart({
-            url: 'https://magicbox.bk.tencent.com/static_api/v3/components/chart3/demo.json',
+            url: 'http://apps.blueking.megaspeed-tech.ai/idc/api/cmdb/get_power_date_z',
             dataType: 'json',
             containerId: 'chart_1733795955393'
           });
         });
-        // 创建图表
-        function createKendoPieChart(conf) {
-          $(conf.selector).kendoChart({
-            title: {
-              text: conf.data.title
-            },
-            legend: {
-              position: "bottom"
-            },
-            theme: 'bootstrap',
-            seriesDefaults: {
-              labels: {
-                template: "#= category # - #= kendo.format('{0:P}', percentage)#",
-                position: "outsideEnd",
-                visible: true,
-                background: "transparent"
-              }
-            },
-            series: [{
-              type: 'pie',
-              data: conf.data.series
-            }],
-            tooltip: {
-              visible: true,
-              template: "#= category # - #= kendo.format('{0:P}', percentage) #"
-            }
-          });
-          $(window).resize(function () {
-            $(conf.selector).data("kendoChart").refresh();
-          });
-        }
-        function initKendoPieChart(conf) {
-          // 异步请求后台数据
-          $.ajax({
-            url: conf.url,
-            type: 'GET',
-            dataType: conf.dataType,
-            success: function (res) {
-              //获取数据成功
-              if (res.result) {
-                var data = {
-                  series: res.data.series
-                };
-                createKendoPieChart({
-                  selector: conf.container, // 图表容器
-                  data: data // 图表数据
-                });
-              }
-            }
-          });
-        }
-        $(function () {
-          initKendoPieChart({
-            url: 'https://magicbox.bk.tencent.com/static_api/v3/components/charts_pie/demo.json',
-            dataType: 'json',
-            container: '#chart_1733796033555'
-          });
-        });
-        // 创建图表
+        // 饼图样式
         function createEPieChart(conf) {
           var myChart = echarts.init(document.getElementById(conf.selector));
           var aLegend = [];
@@ -250,6 +195,8 @@
             },
             legend: {
               y: 'bottom',
+              bottom: 10, // 将图例往下移动 20px，可以根据需要调整
+              padding: [0, 0, 0, 0], // 上、右、下、左的内边距调整
               data: aLegend
             },
             tooltip: {
@@ -280,7 +227,7 @@
             calculable: true,
             series: [{
               // 根据名字对应到相应的系列
-              name: '访问来源',
+              name: '',
               type: 'pie',
               data: series
             }]
@@ -303,12 +250,29 @@
             }
           });
         }
-        $(function () {
-          initEPieChart({
-            url: 'https://magicbox.bk.tencent.com/static_api/v3/components/chart4/demo.json',
-            dataType: 'json',
-            containerId: 'chart_1733796035525'
-          });
+        // 城市机柜饼图数据源及位置
+        $(function(){            
+            initEPieChart({
+                url: 'http://apps.blueking.megaspeed-tech.ai/idc/api/cmdb/get_machine_room',
+                dataType: 'json',
+                containerId: 'chart_1736151845013'
+            });   
+        });
+        // 机柜加电状态饼图
+        $(function(){            
+            initEPieChart({
+                url: 'http://apps.blueking.megaspeed-tech.ai/idc/api/cmdb/get_cabinet_state',
+                dataType: 'json',
+                containerId: 'chart_1736151848147'
+            });   
+        });
+        // 投产状态饼图
+                $(function(){            
+            initEPieChart({
+                url: 'http://apps.blueking.megaspeed-tech.ai/idc/api/cmdb/get_life_cycle',
+                dataType: 'json',
+                containerId: 'chart_1736151850642'
+            });   
         });
     </script>
   </body>
